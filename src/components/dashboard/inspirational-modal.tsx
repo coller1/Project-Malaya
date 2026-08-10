@@ -9,6 +9,7 @@ import {
 } from "@/components/ui/dialog";
 import { Sparkles } from "lucide-react";
 //comment only
+//comment again
 const quotes = [
   {
     text: "The expert in anything was once a beginner.",
