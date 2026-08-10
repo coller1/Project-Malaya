@@ -66,9 +66,9 @@ export default function RegisterPage() {
   const totalSteps = 6;
 
   return (
-    <div className="flex h-screen overflow-hidden bg-slate-50 text-slate-900 dark:bg-slate-950 dark:text-slate-100">
+    <div className="flex min-h-screen overflow-hidden bg-slate-50 text-slate-900 dark:bg-slate-950 dark:text-slate-100">
       <div className="flex w-full flex-col lg:flex-row">
-        {/* Image Section - LEFT SIDE - FIXED */}
+        {/* Image Section - LEFT SIDE - FIXED - Hidden on mobile */}
         <div className="relative hidden h-screen w-full lg:block lg:w-1/2">
           <Image
             src="/abea012d-2b4b-4d3f-8b91-91b76bbad804.png"
@@ -80,10 +80,10 @@ export default function RegisterPage() {
           <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-black/10 to-transparent" />
         </div>
 
-        {/* Form Section - RIGHT SIDE */}
-        <div className="relative flex w-full flex-col overflow-y-auto p-8 sm:p-12 lg:w-1/2 lg:p-16">
+        {/* Form Section - RIGHT SIDE - Full width on mobile */}
+        <div className="relative flex w-full flex-col overflow-y-auto p-4 sm:p-8 lg:w-1/2 lg:p-12 xl:p-16">
           {/* Background overlay image in lower part */}
-          <div className="absolute inset-x-0 bottom-0 h-2/3 overflow-hidden">
+          <div className="absolute inset-x-0 bottom-0 h-2/3 overflow-hidden opacity-20 lg:opacity-100">
             <Image
               src="/image 15.png"
               alt="Background pattern"

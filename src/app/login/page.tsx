@@ -15,6 +15,7 @@ export default function LoginPage() {
   return (
     <div className="flex min-h-screen bg-slate-50 text-slate-900 dark:bg-slate-950 dark:text-slate-100">
       <div className="flex w-full flex-col lg:flex-row">
+        {/* Left Image - Hidden on mobile */}
         <div className="relative hidden w-full lg:block lg:w-1/2">
           <Image
             src="/abea012d-2b4b-4d3f-8b91-91b76bbad804.png"
@@ -26,9 +27,10 @@ export default function LoginPage() {
           <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-black/10 to-transparent" />
         </div>
 
-        <div className="relative flex w-full items-center justify-center p-8 sm:p-12 lg:w-1/2 lg:p-16">
+        {/* Right Form - Full width on mobile */}
+        <div className="relative flex w-full items-center justify-center p-4 sm:p-8 lg:w-1/2 lg:p-16">
           {/* Background overlay image in lower part */}
-          <div className="absolute inset-x-0 bottom-0 h-2/3 overflow-hidden">
+          <div className="absolute inset-x-0 bottom-0 h-2/3 overflow-hidden opacity-30 lg:opacity-100">
             <Image
               src="/image 15.png"
               alt="Background pattern"
@@ -43,41 +45,41 @@ export default function LoginPage() {
               <Image
                 src="/MPATH%20LOGO.png"
                 alt="MPath logo"
-                width={300}
-                height={300}
-                className="block h-auto w-full max-w-[300px] object-contain dark:hidden"
+                width={250}
+                height={250}
+                className="block h-auto w-full max-w-[200px] object-contain sm:max-w-[250px] lg:max-w-[300px] dark:hidden"
               />
               <Image
                 src="/DARKMODE.png"
                 alt="MPath logo dark"
-                width={300}
-                height={300}
-                className="hidden h-auto w-full max-w-[300px] object-contain dark:block"
+                width={250}
+                height={250}
+                className="hidden h-auto w-full max-w-[200px] object-contain sm:max-w-[250px] lg:max-w-[300px] dark:block"
               />
             </div>
 
-            <p className="text-sm font-semibold uppercase tracking-[0.2em] text-[#0B5D4E] dark:text-[#7EE7D5]">Welcome back</p>
-            <p className="mt-1 text-sm text-slate-600 dark:text-slate-300">Continue your learning journey and pick up where you left off.</p>
+            <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[#0B5D4E] sm:text-sm dark:text-[#7EE7D5]">Welcome back</p>
+            <p className="mt-1 text-xs text-slate-600 sm:text-sm dark:text-slate-300">Continue your learning journey and pick up where you left off.</p>
 
-            <form className="mt-4 space-y-5" onSubmit={handleSubmit}>
+            <form className="mt-4 space-y-4 sm:space-y-5" onSubmit={handleSubmit}>
               <div>
-                <label className="mb-2 block text-sm font-medium text-slate-700 dark:text-slate-200">Email</label>
+                <label className="mb-2 block text-xs font-medium text-slate-700 sm:text-sm dark:text-slate-200">Email</label>
                 <input
                   type="email"
                   placeholder="you@example.com"
-                  className="w-full rounded-2xl border border-slate-200 bg-white px-5 py-4 text-base text-slate-900 outline-none ring-0 transition focus:border-[#0B5D4E] focus:ring-2 focus:ring-[#0B5D4E]/20 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-100 dark:focus:border-[#7EE7D5] dark:focus:ring-[#7EE7D5]/20"
+                  className="w-full rounded-2xl border border-slate-200 bg-white px-4 py-3 text-sm text-slate-900 outline-none ring-0 transition focus:border-[#0B5D4E] focus:ring-2 focus:ring-[#0B5D4E]/20 sm:px-5 sm:py-4 sm:text-base dark:border-slate-700 dark:bg-slate-800 dark:text-slate-100 dark:focus:border-[#7EE7D5] dark:focus:ring-[#7EE7D5]/20"
                 />
               </div>
               <div>
-                <label className="mb-2 block text-sm font-medium text-slate-700 dark:text-slate-200">Password</label>
+                <label className="mb-2 block text-xs font-medium text-slate-700 sm:text-sm dark:text-slate-200">Password</label>
                 <input
                   type="password"
                   placeholder="Enter your password"
-                  className="w-full rounded-2xl border border-slate-200 bg-white px-5 py-4 text-base text-slate-900 outline-none ring-0 transition focus:border-[#0B5D4E] focus:ring-2 focus:ring-[#0B5D4E]/20 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-100 dark:focus:border-[#7EE7D5] dark:focus:ring-[#7EE7D5]/20"
+                  className="w-full rounded-2xl border border-slate-200 bg-white px-4 py-3 text-sm text-slate-900 outline-none ring-0 transition focus:border-[#0B5D4E] focus:ring-2 focus:ring-[#0B5D4E]/20 sm:px-5 sm:py-4 sm:text-base dark:border-slate-700 dark:bg-slate-800 dark:text-slate-100 dark:focus:border-[#7EE7D5] dark:focus:ring-[#7EE7D5]/20"
                 />
               </div>
 
-              <div className="flex items-center justify-between text-sm">
+              <div className="flex items-center justify-between text-xs sm:text-sm">
                 <label className="flex items-center gap-2">
                   <input
                     type="checkbox"
@@ -92,7 +94,7 @@ export default function LoginPage() {
 
               <button
                 type="submit"
-                className="w-full rounded-2xl bg-[#0B5D4E] px-5 py-4 text-base font-semibold text-white transition hover:bg-[#09493f] dark:bg-[#7EE7D5] dark:text-slate-900 dark:hover:bg-[#6dd4c1]"
+                className="w-full rounded-2xl bg-[#0B5D4E] px-4 py-3 text-sm font-semibold text-white transition hover:bg-[#09493f] sm:px-5 sm:py-4 sm:text-base dark:bg-[#7EE7D5] dark:text-slate-900 dark:hover:bg-[#6dd4c1]"
               >
                 Sign in
               </button>

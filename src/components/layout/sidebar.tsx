@@ -17,6 +17,7 @@ import {
   Settings,
   ChevronDown,
   ChevronRight,
+  X,
 } from "lucide-react";
 import {
   Dialog,
@@ -27,6 +28,7 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
+import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 
 const items = [
   { label: "Home", href: "/dashboard", icon: Home },
@@ -47,7 +49,7 @@ const items = [
   { label: "Schedule", href: "/schedule", icon: Menu },
 ];
 
-export function Sidebar() {
+function SidebarContent({ onNavigate }: { onNavigate?: () => void }) {
   const pathname = usePathname();
   const router = useRouter();
   const [isLogoutDialogOpen, setIsLogoutDialogOpen] = useState(false);
@@ -62,8 +64,12 @@ export function Sidebar() {
     setOpenSubmenu(openSubmenu === label ? null : label);
   };
 
+  const handleNavClick = () => {
+    onNavigate?.();
+  };
+
   return (
-    <aside className="hidden h-full w-72 shrink-0 flex-col overflow-y-auto border-r border-slate-200 bg-white p-6 pt-2 lg:flex dark:border-slate-800 dark:bg-slate-900">
+    <>
       <div className="flex items-center justify-center">
         <Image
           src="/MPATH%20LOGO.png"
@@ -116,6 +122,7 @@ export function Sidebar() {
               ) : (
                 <Link
                   href={href}
+                  onClick={handleNavClick}
                   className={`group relative flex w-full items-center gap-3 px-3 py-2.5 text-left text-sm font-medium transition ${
                     isActive
                       ? "text-[#0B5D4E] dark:text-[#7EE7D5]"
@@ -139,6 +146,7 @@ export function Sidebar() {
                       <Link
                         key={subitem.href}
                         href={subitem.href}
+                        onClick={handleNavClick}
                         className={`block rounded-lg px-3 py-2 text-sm transition ${
                           isSubActive
                             ? "bg-[#E8F7F3] font-medium text-[#0B5D4E] dark:bg-slate-800 dark:text-[#7EE7D5]"
@@ -205,6 +213,31 @@ export function Sidebar() {
           </DialogFooter>
         </DialogContent>
       </Dialog>
+    </>
+  );
+}
+
+export function Sidebar() {
+  return (
+    <aside className="hidden h-full w-72 shrink-0 flex-col overflow-y-auto border-r border-slate-200 bg-white p-6 pt-2 lg:flex dark:border-slate-800 dark:bg-slate-900">
+      <SidebarContent />
     </aside>
+  );
+}
+
+export function MobileSidebar() {
+  const [open, setOpen] = useState(false);
+
+  return (
+    <Sheet open={open} onOpenChange={setOpen}>
+      <SheetTrigger asChild>
+        <button className="p-2 text-slate-800 lg:hidden dark:text-slate-100">
+          <Menu className="h-5 w-5" />
+        </button>
+      </SheetTrigger>
+      <SheetContent side="left" className="w-72 p-6 pt-2">
+        <SidebarContent onNavigate={() => setOpen(false)} />
+      </SheetContent>
+    </Sheet>
   );
 }
