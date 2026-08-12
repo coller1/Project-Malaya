@@ -66,10 +66,10 @@ export default function RegisterPage() {
   const totalSteps = 6;
 
   return (
-    <div className="flex min-h-screen overflow-hidden bg-slate-50 text-slate-900 dark:bg-slate-950 dark:text-slate-100">
-      <div className="flex w-full flex-col lg:flex-row">
+    <div className="flex h-screen overflow-hidden bg-slate-50 text-slate-900 dark:bg-slate-950 dark:text-slate-100">
+      <div className="flex h-full w-full flex-col lg:flex-row">
         {/* Image Section - LEFT SIDE - FIXED - Hidden on mobile */}
-        <div className="relative hidden h-screen w-full lg:block lg:w-1/2">
+        <div className="relative hidden h-full w-full flex-shrink-0 lg:block lg:w-1/2">
           <Image
             src="/abea012d-2b4b-4d3f-8b91-91b76bbad804.png"
             alt="Auth illustration"
@@ -80,19 +80,20 @@ export default function RegisterPage() {
           <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-black/10 to-transparent" />
         </div>
 
-        {/* Form Section - RIGHT SIDE - Full width on mobile */}
-        <div className="relative flex w-full flex-col overflow-y-auto p-4 sm:p-8 lg:w-1/2 lg:p-12 xl:p-16">
-          {/* Background overlay image in lower part */}
-          <div className="absolute inset-x-0 bottom-0 h-2/3 overflow-hidden opacity-20 lg:opacity-100">
-            <Image
-              src="/image 15.png"
-              alt="Background pattern"
-              fill
-              className="object-cover"
-            />
-          </div>
-          
-          <div className="relative z-10 mx-auto flex w-full max-w-2xl flex-col">
+        {/* Form Section - RIGHT SIDE - Scrollable - Full width on mobile */}
+        <div className="relative flex h-full w-full flex-col overflow-y-auto lg:w-1/2">
+          <div className="relative flex min-h-full flex-col p-4 sm:p-8 lg:p-12 xl:p-16">
+            {/* Background overlay image in lower part */}
+            <div className="absolute inset-x-0 bottom-0 h-2/3 overflow-hidden opacity-20 lg:opacity-100">
+              <Image
+                src="/image 15.png"
+                alt="Background pattern"
+                fill
+                className="object-cover"
+              />
+            </div>
+            
+            <div className="relative z-10 mx-auto flex w-full max-w-2xl flex-col">
             {/* MPath Logo */}
             <div className="mb-4 flex justify-center">
               <Image
@@ -168,6 +169,7 @@ export default function RegisterPage() {
                 Sign in
               </Link>
             </div>
+          </div>
           </div>
         </div>
       </div>
