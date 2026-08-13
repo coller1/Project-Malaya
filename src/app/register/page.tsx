@@ -22,6 +22,17 @@ export default function RegisterPage() {
     school: "",
     expectedGraduation: "",
     employmentStatus: "",
+    previousCareer: "",
+    yearsOfExperience: "",
+    reasonForShift: "",
+    currentJobAbroad: "",
+    workingCountry: "",
+    ofwYearsOfExperience: "",
+    planToReturnToPH: "",
+    returnTimeline: "",
+    currentTrade: "",
+    tradeYearsOfExperience: "",
+    certifications: "",
     reasons: [],
     additionalGoals: "",
     careerGoal: "",
@@ -268,11 +279,151 @@ function Step2({ formData, updateFormData }: any) {
           <option value="Student">Student</option>
           <option value="Fresh Graduate">Fresh Graduate</option>
           <option value="Employed">Employed</option>
+          <option value="OFW (Overseas Filipino Worker)">OFW (Overseas Filipino Worker)</option>
+          <option value="Skilled Worker">Skilled Worker</option>
           <option value="Self-employed">Self-employed</option>
           <option value="Career Shifter">Career Shifter</option>
           <option value="Unemployed">Unemployed</option>
         </select>
       </div>
+
+      {/* Career Shifter specific questions */}
+      {formData.currentOccupation === "Career Shifter" && (
+        <>
+          <div>
+            <label className="mb-2 block text-sm font-medium text-slate-700 dark:text-slate-200">Previous Career/Job Title</label>
+            <input
+              type="text"
+              value={formData.previousCareer}
+              onChange={(e) => updateFormData("previousCareer", e.target.value)}
+              placeholder="e.g., Accountant, Teacher, Sales Manager"
+              className="w-full rounded-2xl border border-slate-200 bg-white px-5 py-3 text-base text-slate-900 outline-none ring-0 transition focus:border-[#0B5D4E] focus:ring-2 focus:ring-[#0B5D4E]/20 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-100 dark:focus:border-[#7EE7D5] dark:focus:ring-[#7EE7D5]/20"
+            />
+          </div>
+          <div>
+            <label className="mb-2 block text-sm font-medium text-slate-700 dark:text-slate-200">Years of Experience in Previous Career</label>
+            <select
+              value={formData.yearsOfExperience}
+              onChange={(e) => updateFormData("yearsOfExperience", e.target.value)}
+              className="w-full rounded-2xl border border-slate-200 bg-white px-5 py-3 text-base text-slate-900 outline-none ring-0 transition focus:border-[#0B5D4E] focus:ring-2 focus:ring-[#0B5D4E]/20 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-100 dark:focus:border-[#7EE7D5] dark:focus:ring-[#7EE7D5]/20"
+            >
+              <option value="">Select years</option>
+              <option value="Less than 1 year">Less than 1 year</option>
+              <option value="1-2 years">1-2 years</option>
+              <option value="3-5 years">3-5 years</option>
+              <option value="6-10 years">6-10 years</option>
+              <option value="More than 10 years">More than 10 years</option>
+            </select>
+          </div>
+          <div>
+            <label className="mb-2 block text-sm font-medium text-slate-700 dark:text-slate-200">Why are you shifting careers?</label>
+            <textarea
+              value={formData.reasonForShift}
+              onChange={(e) => updateFormData("reasonForShift", e.target.value)}
+              placeholder="Share your motivation for changing careers..."
+              rows={3}
+              className="w-full rounded-2xl border border-slate-200 bg-white px-5 py-3 text-base text-slate-900 outline-none ring-0 transition focus:border-[#0B5D4E] focus:ring-2 focus:ring-[#0B5D4E]/20 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-100 dark:focus:border-[#7EE7D5] dark:focus:ring-[#7EE7D5]/20"
+            />
+          </div>
+        </>
+      )}
+
+      {/* OFW specific questions */}
+      {formData.currentOccupation === "OFW (Overseas Filipino Worker)" && (
+        <>
+          <div>
+            <label className="mb-2 block text-sm font-medium text-slate-700 dark:text-slate-200">Current Job/Role Abroad</label>
+            <input
+              type="text"
+              value={formData.currentJobAbroad}
+              onChange={(e) => updateFormData("currentJobAbroad", e.target.value)}
+              placeholder="e.g., Nurse, Caregiver, Engineer"
+              className="w-full rounded-2xl border border-slate-200 bg-white px-5 py-3 text-base text-slate-900 outline-none ring-0 transition focus:border-[#0B5D4E] focus:ring-2 focus:ring-[#0B5D4E]/20 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-100 dark:focus:border-[#7EE7D5] dark:focus:ring-[#7EE7D5]/20"
+            />
+          </div>
+          <div>
+            <label className="mb-2 block text-sm font-medium text-slate-700 dark:text-slate-200">Which country are you working in?</label>
+            <input
+              type="text"
+              value={formData.workingCountry}
+              onChange={(e) => updateFormData("workingCountry", e.target.value)}
+              placeholder="e.g., Saudi Arabia, Singapore, USA"
+              className="w-full rounded-2xl border border-slate-200 bg-white px-5 py-3 text-base text-slate-900 outline-none ring-0 transition focus:border-[#0B5D4E] focus:ring-2 focus:ring-[#0B5D4E]/20 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-100 dark:focus:border-[#7EE7D5] dark:focus:ring-[#7EE7D5]/20"
+            />
+          </div>
+          <div>
+            <label className="mb-2 block text-sm font-medium text-slate-700 dark:text-slate-200">Years of OFW Experience</label>
+            <select
+              value={formData.ofwYearsOfExperience}
+              onChange={(e) => updateFormData("ofwYearsOfExperience", e.target.value)}
+              className="w-full rounded-2xl border border-slate-200 bg-white px-5 py-3 text-base text-slate-900 outline-none ring-0 transition focus:border-[#0B5D4E] focus:ring-2 focus:ring-[#0B5D4E]/20 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-100 dark:focus:border-[#7EE7D5] dark:focus:ring-[#7EE7D5]/20"
+            >
+              <option value="">Select years</option>
+              <option value="Less than 1 year">Less than 1 year</option>
+              <option value="1-2 years">1-2 years</option>
+              <option value="3-5 years">3-5 years</option>
+              <option value="6-10 years">6-10 years</option>
+              <option value="More than 10 years">More than 10 years</option>
+            </select>
+          </div>
+          <div>
+            <label className="mb-2 block text-sm font-medium text-slate-700 dark:text-slate-200">Do you plan to return to the Philippines?</label>
+            <select
+              value={formData.planToReturnToPH}
+              onChange={(e) => updateFormData("planToReturnToPH", e.target.value)}
+              className="w-full rounded-2xl border border-slate-200 bg-white px-5 py-3 text-base text-slate-900 outline-none ring-0 transition focus:border-[#0B5D4E] focus:ring-2 focus:ring-[#0B5D4E]/20 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-100 dark:focus:border-[#7EE7D5] dark:focus:ring-[#7EE7D5]/20"
+            >
+              <option value="">Select option</option>
+              <option value="Yes, within 6 months">Yes, within 6 months</option>
+              <option value="Yes, within 1 year">Yes, within 1 year</option>
+              <option value="Yes, within 2-3 years">Yes, within 2-3 years</option>
+              <option value="No, staying abroad">No, staying abroad</option>
+              <option value="Undecided">Undecided</option>
+            </select>
+          </div>
+        </>
+      )}
+
+      {/* Skilled Worker specific questions */}
+      {formData.currentOccupation === "Skilled Worker" && (
+        <>
+          <div>
+            <label className="mb-2 block text-sm font-medium text-slate-700 dark:text-slate-200">Current Trade/Skill</label>
+            <input
+              type="text"
+              value={formData.currentTrade}
+              onChange={(e) => updateFormData("currentTrade", e.target.value)}
+              placeholder="e.g., Electrician, Plumber, Mechanic, Chef"
+              className="w-full rounded-2xl border border-slate-200 bg-white px-5 py-3 text-base text-slate-900 outline-none ring-0 transition focus:border-[#0B5D4E] focus:ring-2 focus:ring-[#0B5D4E]/20 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-100 dark:focus:border-[#7EE7D5] dark:focus:ring-[#7EE7D5]/20"
+            />
+          </div>
+          <div>
+            <label className="mb-2 block text-sm font-medium text-slate-700 dark:text-slate-200">Years of Experience in This Trade</label>
+            <select
+              value={formData.tradeYearsOfExperience}
+              onChange={(e) => updateFormData("tradeYearsOfExperience", e.target.value)}
+              className="w-full rounded-2xl border border-slate-200 bg-white px-5 py-3 text-base text-slate-900 outline-none ring-0 transition focus:border-[#0B5D4E] focus:ring-2 focus:ring-[#0B5D4E]/20 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-100 dark:focus:border-[#7EE7D5] dark:focus:ring-[#7EE7D5]/20"
+            >
+              <option value="">Select years</option>
+              <option value="Less than 1 year">Less than 1 year</option>
+              <option value="1-2 years">1-2 years</option>
+              <option value="3-5 years">3-5 years</option>
+              <option value="6-10 years">6-10 years</option>
+              <option value="More than 10 years">More than 10 years</option>
+            </select>
+          </div>
+          <div>
+            <label className="mb-2 block text-sm font-medium text-slate-700 dark:text-slate-200">Certifications/Licenses (if any)</label>
+            <input
+              type="text"
+              value={formData.certifications}
+              onChange={(e) => updateFormData("certifications", e.target.value)}
+              placeholder="e.g., TESDA NC II, PRC License"
+              className="w-full rounded-2xl border border-slate-200 bg-white px-5 py-3 text-base text-slate-900 outline-none ring-0 transition focus:border-[#0B5D4E] focus:ring-2 focus:ring-[#0B5D4E]/20 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-100 dark:focus:border-[#7EE7D5] dark:focus:ring-[#7EE7D5]/20"
+            />
+          </div>
+        </>
+      )}
 
       <div>
         <label className="mb-2 block text-sm font-medium text-slate-700 dark:text-slate-200">Education Level</label>
@@ -283,6 +434,7 @@ function Step2({ formData, updateFormData }: any) {
         >
           <option value="">Select education level</option>
           <option value="High School">High School</option>
+          <option value="Vocational/Technical">Vocational/Technical</option>
           <option value="College Undergraduate">College Undergraduate</option>
           <option value="College Graduate">College Graduate</option>
           <option value="Master's Degree">Master's Degree</option>
@@ -608,7 +760,24 @@ function Step6({ formData, handleSubmit }: any) {
       ? formData.targetSkills.slice(0, 3).join(", ") 
       : "key skills";
     
-    return `You are currently a ${yearLevel}${course} ${occupation.toLowerCase()} interested in transitioning into ${career}. Based on your background and selected skills, we will create a personalized roadmap focused on ${skills}${formData.targetSkills.length > 3 ? ', and more' : ''}. Recommended opportunities will include internships, projects, and relevant certifications to help you achieve your goals within ${formData.targetTimeline || "your desired timeline"}.`;
+    // Build contextual intro based on occupation
+    let intro = "";
+    
+    if (occupation === "Career Shifter" && formData.previousCareer) {
+      intro = `You are currently transitioning from ${formData.previousCareer} with ${formData.yearsOfExperience || "experience"} in that field, now pursuing a career in ${career}.`;
+    } else if (occupation === "OFW (Overseas Filipino Worker)" && formData.currentJobAbroad) {
+      const returnPlan = formData.planToReturnToPH 
+        ? ` and planning to return to the Philippines ${formData.planToReturnToPH.toLowerCase()}`
+        : "";
+      intro = `You are currently working as ${formData.currentJobAbroad} in ${formData.workingCountry || "abroad"}${returnPlan}, interested in transitioning into ${career}.`;
+    } else if (occupation === "Skilled Worker" && formData.currentTrade) {
+      const certs = formData.certifications ? ` with certifications in ${formData.certifications}` : "";
+      intro = `You are currently working as a ${formData.currentTrade} with ${formData.tradeYearsOfExperience || "experience"}${certs}, interested in transitioning into ${career}.`;
+    } else {
+      intro = `You are currently a ${yearLevel}${course} ${occupation.toLowerCase()} interested in transitioning into ${career}.`;
+    }
+    
+    return `${intro} Based on your background and selected skills, we will create a personalized roadmap focused on ${skills}${formData.targetSkills.length > 3 ? ', and more' : ''}. Recommended opportunities will include internships, projects, and relevant certifications to help you achieve your goals within ${formData.targetTimeline || "your desired timeline"}.`;
   };
 
   return (
@@ -650,6 +819,85 @@ function Step6({ formData, handleSubmit }: any) {
               <span className="text-slate-600 dark:text-slate-400">Occupation:</span>
               <span className="font-medium text-slate-900 dark:text-slate-100">{formData.currentOccupation || "N/A"}</span>
             </div>
+            
+            {/* Career Shifter specific fields */}
+            {formData.currentOccupation === "Career Shifter" && (
+              <>
+                {formData.previousCareer && (
+                  <div className="flex justify-between">
+                    <span className="text-slate-600 dark:text-slate-400">Previous Career:</span>
+                    <span className="font-medium text-slate-900 dark:text-slate-100">{formData.previousCareer}</span>
+                  </div>
+                )}
+                {formData.yearsOfExperience && (
+                  <div className="flex justify-between">
+                    <span className="text-slate-600 dark:text-slate-400">Years of Experience:</span>
+                    <span className="font-medium text-slate-900 dark:text-slate-100">{formData.yearsOfExperience}</span>
+                  </div>
+                )}
+                {formData.reasonForShift && (
+                  <div className="flex flex-col">
+                    <span className="text-slate-600 dark:text-slate-400">Reason for Career Shift:</span>
+                    <span className="mt-1 font-medium text-slate-900 dark:text-slate-100">{formData.reasonForShift}</span>
+                  </div>
+                )}
+              </>
+            )}
+
+            {/* OFW specific fields */}
+            {formData.currentOccupation === "OFW (Overseas Filipino Worker)" && (
+              <>
+                {formData.currentJobAbroad && (
+                  <div className="flex justify-between">
+                    <span className="text-slate-600 dark:text-slate-400">Job Abroad:</span>
+                    <span className="font-medium text-slate-900 dark:text-slate-100">{formData.currentJobAbroad}</span>
+                  </div>
+                )}
+                {formData.workingCountry && (
+                  <div className="flex justify-between">
+                    <span className="text-slate-600 dark:text-slate-400">Working Country:</span>
+                    <span className="font-medium text-slate-900 dark:text-slate-100">{formData.workingCountry}</span>
+                  </div>
+                )}
+                {formData.ofwYearsOfExperience && (
+                  <div className="flex justify-between">
+                    <span className="text-slate-600 dark:text-slate-400">OFW Experience:</span>
+                    <span className="font-medium text-slate-900 dark:text-slate-100">{formData.ofwYearsOfExperience}</span>
+                  </div>
+                )}
+                {formData.planToReturnToPH && (
+                  <div className="flex justify-between">
+                    <span className="text-slate-600 dark:text-slate-400">Return to PH:</span>
+                    <span className="font-medium text-slate-900 dark:text-slate-100">{formData.planToReturnToPH}</span>
+                  </div>
+                )}
+              </>
+            )}
+
+            {/* Skilled Worker specific fields */}
+            {formData.currentOccupation === "Skilled Worker" && (
+              <>
+                {formData.currentTrade && (
+                  <div className="flex justify-between">
+                    <span className="text-slate-600 dark:text-slate-400">Trade/Skill:</span>
+                    <span className="font-medium text-slate-900 dark:text-slate-100">{formData.currentTrade}</span>
+                  </div>
+                )}
+                {formData.tradeYearsOfExperience && (
+                  <div className="flex justify-between">
+                    <span className="text-slate-600 dark:text-slate-400">Years of Experience:</span>
+                    <span className="font-medium text-slate-900 dark:text-slate-100">{formData.tradeYearsOfExperience}</span>
+                  </div>
+                )}
+                {formData.certifications && (
+                  <div className="flex flex-col">
+                    <span className="text-slate-600 dark:text-slate-400">Certifications:</span>
+                    <span className="mt-1 font-medium text-slate-900 dark:text-slate-100">{formData.certifications}</span>
+                  </div>
+                )}
+              </>
+            )}
+
             <div className="flex justify-between">
               <span className="text-slate-600 dark:text-slate-400">Education Level:</span>
               <span className="font-medium text-slate-900 dark:text-slate-100">{formData.educationLevel || "N/A"}</span>

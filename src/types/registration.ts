@@ -14,6 +14,23 @@ export interface RegistrationData {
   school: string;
   expectedGraduation: string;
   employmentStatus: string;
+  
+  // Career Shifter specific
+  previousCareer?: string;
+  yearsOfExperience?: string;
+  reasonForShift?: string;
+  
+  // OFW specific
+  currentJobAbroad?: string;
+  workingCountry?: string;
+  ofwYearsOfExperience?: string;
+  planToReturnToPH?: string;
+  returnTimeline?: string;
+  
+  // Skilled Worker specific
+  currentTrade?: string;
+  tradeYearsOfExperience?: string;
+  certifications?: string;
 
   // Step 3: Purpose
   reasons: string[];

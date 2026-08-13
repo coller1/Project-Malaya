@@ -3,62 +3,104 @@
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight, BookOpen, Target, TrendingUp, Users, Award, CheckCircle2, Sparkles, BarChart3, Calendar } from "lucide-react";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 
 export default function LandingPage() {
   const [mounted, setMounted] = useState(false);
+  const [counts, setCounts] = useState({ learners: 0, courses: 0, success: 0 });
+  const statsRef = useRef<HTMLDivElement>(null);
+  const [hasAnimated, setHasAnimated] = useState(false);
 
   useEffect(() => {
     setMounted(true);
+    
+    // Start counting animation after a brief delay
+    const timer = setTimeout(() => {
+      setHasAnimated(true);
+      
+      // Animate learners count to 10000
+      let learnerCount = 0;
+      const learnersInterval = setInterval(() => {
+        learnerCount += 250;
+        if (learnerCount >= 10000) {
+          learnerCount = 10000;
+          clearInterval(learnersInterval);
+        }
+        setCounts(prev => ({ ...prev, learners: learnerCount }));
+      }, 15);
+
+      // Animate courses count to 500
+      let courseCount = 0;
+      const coursesInterval = setInterval(() => {
+        courseCount += 12;
+        if (courseCount >= 500) {
+          courseCount = 500;
+          clearInterval(coursesInterval);
+        }
+        setCounts(prev => ({ ...prev, courses: courseCount }));
+      }, 15);
+
+      // Animate success rate to 95
+      let successCount = 0;
+      const successInterval = setInterval(() => {
+        successCount += 2;
+        if (successCount >= 95) {
+          successCount = 95;
+          clearInterval(successInterval);
+        }
+        setCounts(prev => ({ ...prev, success: successCount }));
+      }, 25);
+    }, 500);
+
+    return () => clearTimeout(timer);
   }, []);
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-[#F5F1E8] dark:from-slate-950 dark:via-slate-900 dark:to-slate-950">
       {/* Navigation */}
-      <nav className="fixed top-0 z-50 w-full bg-white/95 backdrop-blur-md dark:bg-slate-950/95 animate-in slide-in-from-top duration-700">
-        <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-6 sm:px-6 lg:px-8">
+      <nav className="relative z-50 w-full animate-in slide-in-from-top duration-700">
+        <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-2 sm:px-6 lg:px-8">
           <div className="flex items-center gap-2">
             <Image
               src="/newlogo.png"
               alt="MPATH Logo"
-              width={240}
-              height={80}
-              className="h-16 w-auto sm:h-20"
+              width={300}
+              height={100}
+              className="h-20 w-auto sm:h-24 lg:h-28"
             />
           </div>
           <div className="flex items-center gap-3 sm:gap-4">
             <Link
               href="/login"
-              className="text-sm font-medium text-slate-700 transition-all hover:scale-105 hover:text-[#16A085] dark:text-slate-300 dark:hover:text-[#48C9B0]"
+              className="text-sm font-medium text-slate-700 transition-all hover:scale-105 hover:text-[#0B5D4E] dark:text-slate-300 dark:hover:text-[#0B5D4E]"
             >
               Sign in
             </Link>
             <Link
               href="/register"
-              className="group relative overflow-hidden rounded-full bg-[#16A085] px-4 py-2 text-sm font-semibold text-white transition-all hover:scale-105 hover:shadow-lg dark:bg-[#48C9B0] dark:text-slate-900 sm:px-6"
+              className="group relative overflow-hidden rounded-full bg-[#0B5D4E] px-4 py-2 text-sm font-semibold text-white transition-all hover:scale-105 hover:bg-[#1FA89A] hover:shadow-lg hover:shadow-[#0B5D4E]/30 dark:bg-[#0B5D4E] dark:text-white dark:hover:bg-[#1FA89A] sm:px-6"
             >
               <span className="relative z-10">Get Started</span>
-              <div className="absolute inset-0 -z-0 bg-gradient-to-r from-[#1ABC9C] to-[#16A085] opacity-0 transition-opacity group-hover:opacity-100 dark:from-[#5FDDC1] dark:to-[#48C9B0]" />
             </Link>
           </div>
         </div>
       </nav>
 
       {/* Hero Section */}
-      <section className="relative overflow-hidden pt-24 sm:pt-32">
+      <section className="relative overflow-hidden py-8 sm:py-12">
         {/* Animated Decorative Elements */}
         <div className="absolute inset-0 -z-10">
-          <div className={`absolute right-0 top-0 h-[500px] w-[500px] rounded-full bg-[#16A085]/5 blur-3xl transition-all duration-1000 dark:bg-[#48C9B0]/5 ${mounted ? 'scale-100 opacity-100' : 'scale-50 opacity-0'}`} />
-          <div className={`absolute bottom-0 left-0 h-[400px] w-[400px] rounded-full bg-[#F39C12]/5 blur-3xl transition-all duration-1000 delay-300 ${mounted ? 'scale-100 opacity-100' : 'scale-50 opacity-0'}`} />
+          <div className={`absolute right-0 top-0 h-[500px] w-[500px] rounded-full bg-[#1FA89A]/5 blur-3xl transition-all duration-1000 ${mounted ? 'scale-100 opacity-100' : 'scale-50 opacity-0'}`} />
+          <div className={`absolute bottom-0 left-0 h-[400px] w-[400px] rounded-full bg-[#F5B52E]/5 blur-3xl transition-all duration-1000 delay-300 ${mounted ? 'scale-100 opacity-100' : 'scale-50 opacity-0'}`} />
           {/* Floating orbs */}
-          <div className="absolute left-1/4 top-1/3 h-2 w-2 animate-ping rounded-full bg-[#16A085]/30" style={{ animationDuration: '3s' }} />
-          <div className="absolute right-1/3 top-1/2 h-3 w-3 animate-pulse rounded-full bg-[#F39C12]/20" style={{ animationDuration: '4s' }} />
-          <div className="absolute left-1/2 bottom-1/4 h-2 w-2 animate-ping rounded-full bg-[#3498DB]/30" style={{ animationDuration: '5s' }} />
+          <div className="absolute left-1/4 top-1/3 h-2 w-2 animate-ping rounded-full bg-[#1FA89A]/30" style={{ animationDuration: '3s' }} />
+          <div className="absolute right-1/3 top-1/2 h-3 w-3 animate-pulse rounded-full bg-[#F5B52E]/20" style={{ animationDuration: '4s' }} />
+          <div className="absolute left-1/2 bottom-1/4 h-2 w-2 animate-ping rounded-full bg-[#6D28D9]/30" style={{ animationDuration: '5s' }} />
         </div>
         
         <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 sm:py-24 lg:px-8 lg:py-32">
           <div className="grid gap-12 lg:grid-cols-2 lg:gap-16">
             <div className={`flex flex-col justify-center transition-all duration-1000 ${mounted ? 'translate-x-0 opacity-100' : '-translate-x-12 opacity-0'}`}>
-              <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-[#16A085]/20 bg-[#16A085]/10 px-4 py-2 text-sm font-medium text-[#16A085] dark:border-[#48C9B0]/20 dark:bg-[#48C9B0]/10 dark:text-[#48C9B0] w-fit animate-in slide-in-from-left duration-700 delay-200">
+              <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-[#1FA89A]/20 bg-[#1FA89A]/10 px-4 py-2 text-sm font-medium text-[#0B5D4E] dark:border-[#1FA89A]/30 dark:bg-[#1FA89A]/10 dark:text-[#1FA89A] w-fit animate-in slide-in-from-left duration-700 delay-200">
                 <Sparkles className="h-4 w-4 animate-pulse" />
                 Empowering Filipino Learners
               </div>
@@ -66,21 +108,24 @@ export default function LandingPage() {
                 <span className="inline-block animate-in slide-in-from-left duration-700 delay-300">Learn. Grow.</span>
                 <br />
                 <span className="inline-block animate-in slide-in-from-left duration-700 delay-500">Connect.{" "}</span>
-                <span className="inline-block animate-in slide-in-from-left duration-700 delay-700 bg-gradient-to-r from-[#16A085] to-[#1ABC9C] bg-clip-text text-transparent dark:from-[#48C9B0] dark:to-[#5FDDC1]">
+                <span className="inline-block animate-in slide-in-from-left duration-700 delay-700 text-[#6D28D9] dark:text-[#6D28D9]">
                   Thrive.
                 </span>
               </h1>
+              
+              {/* Warm Gold Line */}
+              <div className="mt-6 h-1 w-24 bg-[#F5B52E] rounded-full"></div>
+              
               <p className={`mt-6 text-lg text-slate-600 dark:text-slate-300 transition-all duration-1000 delay-500 ${mounted ? 'translate-y-0 opacity-100' : 'translate-y-4 opacity-0'}`}>
-                Your personalized platform for career success. Whether you're pursuing tech, business, healthcare, creative arts, or any other field—MPATH guides you with tailored learning paths, skill assessments, and career guidance to achieve your goals.
+                Empowering Filipino learners with skills, opportunities, and pathways to a better future.
               </p>
               <div className={`mt-8 flex flex-col gap-4 sm:flex-row transition-all duration-1000 delay-700 ${mounted ? 'translate-y-0 opacity-100' : 'translate-y-4 opacity-0'}`}>
                 <Link
                   href="/register"
-                  className="group relative inline-flex items-center justify-center gap-2 overflow-hidden rounded-full bg-[#16A085] px-8 py-4 text-base font-semibold text-white transition-all hover:scale-105 hover:shadow-2xl dark:bg-[#48C9B0] dark:text-slate-900"
+                  className="group relative inline-flex items-center justify-center gap-2 overflow-hidden rounded-full bg-[#0B5D4E] px-8 py-4 text-base font-semibold text-white transition-all hover:scale-105 hover:bg-[#1FA89A] hover:shadow-2xl dark:bg-[#0B5D4E] dark:text-white dark:hover:bg-[#1FA89A]"
                 >
                   <span className="relative z-10">Start Your Journey</span>
                   <ArrowRight className="relative z-10 h-5 w-5 transition-transform group-hover:translate-x-1" />
-                  <div className="absolute inset-0 -z-0 bg-gradient-to-r from-[#1ABC9C] to-[#16A085] opacity-0 transition-opacity group-hover:opacity-100 dark:from-[#5FDDC1] dark:to-[#48C9B0]" />
                 </Link>
                 <Link
                   href="/login"
@@ -89,72 +134,99 @@ export default function LandingPage() {
                   Explore Pathways
                 </Link>
               </div>
-              <div className="mt-12 grid grid-cols-3 gap-6">
-                {[
-                  { value: "10K+", label: "Active Learners", delay: "delay-[900ms]" },
-                  { value: "500+", label: "Courses", delay: "delay-[1100ms]" },
-                  { value: "95%", label: "Success Rate", delay: "delay-[1300ms]" }
-                ].map((stat, i) => (
-                  <div key={i} className={`animate-in fade-in zoom-in duration-700 ${stat.delay}`}>
-                    <div className="text-3xl font-bold text-[#16A085] dark:text-[#48C9B0]">{stat.value}</div>
-                    <div className="text-sm text-slate-600 dark:text-slate-400">{stat.label}</div>
+
+              {/* Warm Gold Line below buttons */}
+              <div className="mt-8 h-1 w-24 bg-[#F5B52E] rounded-full"></div>
+
+              <div ref={statsRef} className="mt-12 grid grid-cols-3 gap-6">
+                <div className={`animate-in fade-in zoom-in duration-700 delay-[900ms]`}>
+                  <div className="text-3xl font-bold text-[#1FA89A] dark:text-[#1FA89A]">
+                    {counts.learners >= 1000 ? `${Math.floor(counts.learners / 1000)}K+` : `${counts.learners}+`}
                   </div>
-                ))}
+                  <div className="text-sm text-slate-600 dark:text-slate-400">Active Learners</div>
+                </div>
+                <div className={`animate-in fade-in zoom-in duration-700 delay-[1100ms]`}>
+                  <div className="text-3xl font-bold text-[#1FA89A] dark:text-[#1FA89A]">{counts.courses}+</div>
+                  <div className="text-sm text-slate-600 dark:text-slate-400">Courses</div>
+                </div>
+                <div className={`animate-in fade-in zoom-in duration-700 delay-[1300ms]`}>
+                  <div className="text-3xl font-bold text-[#1FA89A] dark:text-[#1FA89A]">{counts.success}%</div>
+                  <div className="text-sm text-slate-600 dark:text-slate-400">Success Rate</div>
+                </div>
               </div>
             </div>
-            <div className={`relative transition-all duration-1000 delay-300 ${mounted ? 'translate-x-0 opacity-100' : 'translate-x-12 opacity-0'}`}>
-              {/* Abstract Illustration */}
-              <div className="relative aspect-[4/3] overflow-hidden rounded-3xl bg-gradient-to-br from-[#16A085] via-[#16A085]/90 to-[#1ABC9C] shadow-2xl">
-                <div className="absolute inset-0 flex items-center justify-center">
-                  {/* Animated circles */}
-                  <div className="absolute h-64 w-64 rounded-full bg-white/5 animate-pulse" style={{ animationDuration: '3s' }} />
-                  <div className="absolute h-48 w-48 rounded-full bg-white/10 animate-pulse" style={{ animationDuration: '2s' }} />
-                  <div className="absolute h-32 w-32 rounded-full bg-white/20 animate-pulse" style={{ animationDuration: '4s' }} />
-                  
-                  {/* Icons grid */}
-                  <div className="relative grid grid-cols-2 gap-8">
-                    <div className="flex h-20 w-20 items-center justify-center rounded-2xl bg-white/10 backdrop-blur-sm transition-all duration-500 hover:scale-110 hover:bg-white/20">
-                      <BookOpen className="h-10 w-10 text-white" />
-                    </div>
-                    <div className="flex h-20 w-20 items-center justify-center rounded-2xl bg-white/10 backdrop-blur-sm transition-all duration-500 hover:scale-110 hover:bg-white/20">
-                      <Target className="h-10 w-10 text-white" />
-                    </div>
-                    <div className="flex h-20 w-20 items-center justify-center rounded-2xl bg-white/10 backdrop-blur-sm transition-all duration-500 hover:scale-110 hover:bg-white/20">
-                      <TrendingUp className="h-10 w-10 text-white" />
-                    </div>
-                    <div className="flex h-20 w-20 items-center justify-center rounded-2xl bg-white/10 backdrop-blur-sm transition-all duration-500 hover:scale-110 hover:bg-white/20">
-                      <Award className="h-10 w-10 text-white" />
-                    </div>
-                  </div>
-                </div>
+            <div className={`relative flex items-center transition-all duration-1000 delay-300 ${mounted ? 'translate-x-0 opacity-100' : 'translate-x-12 opacity-0'}`}>
+              {/* People image - match left content height */}
+              <div className="relative w-full">
+                <Image
+                  src="/people.png"
+                  alt="Students learning together"
+                  width={1600}
+                  height={1200}
+                  className="w-full h-auto"
+                  priority
+                />
               </div>
-              
-              {/* Floating Cards with animations */}
-              <div className="absolute -right-4 top-8 hidden animate-in slide-in-from-right fade-in duration-1000 delay-[1500ms] lg:block">
-                <div className="rounded-2xl border border-slate-200/50 bg-white p-4 shadow-xl backdrop-blur-sm transition-all duration-300 hover:scale-110 hover:shadow-2xl dark:border-slate-700/50 dark:bg-slate-800">
-                  <div className="flex items-center gap-3">
-                    <div className="flex h-10 w-10 items-center justify-center rounded-full bg-[#16A085]/10 animate-pulse">
-                      <BarChart3 className="h-5 w-5 text-[#16A085] dark:text-[#48C9B0]" />
-                    </div>
-                    <div>
-                      <div className="text-sm font-semibold text-slate-900 dark:text-white">Career Growth</div>
-                      <div className="text-xs text-slate-600 dark:text-slate-400">Track Progress</div>
-                    </div>
-                  </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Learn Grow Connect Thrive Section - Below Hero */}
+      <section className="relative py-0 sm:py-4">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div className="overflow-hidden rounded-xl border border-slate-200 bg-white dark:border-slate-800 dark:bg-slate-900">
+            <div className="grid gap-0 sm:grid-cols-2 lg:grid-cols-4">
+              {/* LEARN */}
+              <div className="flex flex-col items-center border-b border-slate-200 p-8 text-center transition-all hover:bg-slate-50 sm:border-b-0 sm:border-r dark:border-slate-700 dark:hover:bg-slate-800">
+                <div className="flex h-14 w-14 items-center justify-center rounded-lg bg-[#0B5D4E]">
+                  <BookOpen className="h-7 w-7 text-white" />
                 </div>
+                <h3 className="mt-4 text-base font-bold uppercase tracking-wider text-[#0B5D4E]">
+                  LEARN
+                </h3>
+                <p className="mt-2 text-sm text-slate-600 dark:text-slate-400">
+                  Quality education and continuous skill development
+                </p>
               </div>
-              <div className="absolute -left-4 bottom-12 hidden animate-in slide-in-from-left fade-in duration-1000 delay-[1700ms] lg:block">
-                <div className="rounded-2xl border border-slate-200/50 bg-white p-4 shadow-xl backdrop-blur-sm transition-all duration-300 hover:scale-110 hover:shadow-2xl dark:border-slate-700/50 dark:bg-slate-800">
-                  <div className="flex items-center gap-3">
-                    <div className="flex h-10 w-10 items-center justify-center rounded-full bg-purple-500/10 animate-pulse" style={{ animationDuration: '2s' }}>
-                      <Calendar className="h-5 w-5 text-purple-600 dark:text-purple-400" />
-                    </div>
-                    <div>
-                      <div className="text-sm font-semibold text-slate-900 dark:text-white">Next Session</div>
-                      <div className="text-xs text-slate-600 dark:text-slate-400">In 2 hours</div>
-                    </div>
-                  </div>
+
+              {/* GROW */}
+              <div className="flex flex-col items-center border-b border-slate-200 p-8 text-center transition-all hover:bg-slate-50 sm:border-b-0 lg:border-r dark:border-slate-700 dark:hover:bg-slate-800">
+                <div className="flex h-14 w-14 items-center justify-center rounded-lg bg-[#1FA89A]">
+                  <TrendingUp className="h-7 w-7 text-white" />
                 </div>
+                <h3 className="mt-4 text-base font-bold uppercase tracking-wider text-[#1FA89A]">
+                  GROW
+                </h3>
+                <p className="mt-2 text-sm text-slate-600 dark:text-slate-400">
+                  Personal growth through meaningful experiences
+                </p>
+              </div>
+
+              {/* CONNECT */}
+              <div className="flex flex-col items-center border-b border-slate-200 p-8 text-center transition-all hover:bg-slate-50 sm:border-r lg:border-b-0 dark:border-slate-700 dark:hover:bg-slate-800">
+                <div className="flex h-14 w-14 items-center justify-center rounded-lg bg-[#6D28D9]">
+                  <Users className="h-7 w-7 text-white" />
+                </div>
+                <h3 className="mt-4 text-base font-bold uppercase tracking-wider text-[#6D28D9]">
+                  CONNECT
+                </h3>
+                <p className="mt-2 text-sm text-slate-600 dark:text-slate-400">
+                  Building community that supports each other
+                </p>
+              </div>
+
+              {/* THRIVE */}
+              <div className="flex flex-col items-center p-8 text-center transition-all hover:bg-slate-50 dark:hover:bg-slate-800">
+                <div className="flex h-14 w-14 items-center justify-center rounded-lg bg-[#F5B52E]">
+                  <Award className="h-7 w-7 text-white" />
+                </div>
+                <h3 className="mt-4 text-base font-bold uppercase tracking-wider text-[#F5B52E]">
+                  THRIVE
+                </h3>
+                <p className="mt-2 text-sm text-slate-600 dark:text-slate-400">
+                  Achieve dreams and create lasting impact
+                </p>
               </div>
             </div>
           </div>
@@ -176,14 +248,14 @@ export default function LandingPage() {
             {features.map((feature, index) => (
               <div
                 key={index}
-                className={`group relative overflow-hidden rounded-2xl border border-slate-200 bg-white p-8 transition-all duration-700 hover:border-[#16A085]/20 hover:-translate-y-2 hover:shadow-2xl dark:border-slate-800 dark:bg-slate-900 dark:hover:border-[#48C9B0]/20 ${mounted ? 'translate-y-0 opacity-100' : 'translate-y-12 opacity-0'}`}
+                className={`group relative overflow-hidden rounded-2xl border border-slate-200 bg-white p-8 transition-all duration-700 hover:border-[#1FA89A]/20 hover:-translate-y-2 hover:shadow-2xl dark:border-slate-800 dark:bg-slate-900 dark:hover:border-[#1FA89A]/20 ${mounted ? 'translate-y-0 opacity-100' : 'translate-y-12 opacity-0'}`}
                 style={{ transitionDelay: `${index * 150}ms` }}
               >
-                <div className="absolute inset-0 bg-gradient-to-br from-[#16A085]/5 to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100 dark:from-[#48C9B0]/5" />
-                <div className="relative flex h-12 w-12 items-center justify-center rounded-xl bg-[#16A085]/10 transition-all duration-500 group-hover:scale-110 group-hover:rotate-6 group-hover:bg-[#16A085] dark:bg-[#48C9B0]/10 dark:group-hover:bg-[#48C9B0]">
-                  <feature.icon className="h-6 w-6 text-[#16A085] transition-all duration-500 group-hover:scale-110 group-hover:text-white dark:text-[#48C9B0] dark:group-hover:text-slate-900" />
+                <div className="absolute inset-0 bg-[#1FA89A]/5 opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
+                <div className="relative flex h-12 w-12 items-center justify-center rounded-xl bg-[#1FA89A]/10 transition-all duration-500 group-hover:scale-110 group-hover:rotate-6 group-hover:bg-[#1FA89A]">
+                  <feature.icon className="h-6 w-6 text-[#1FA89A] transition-all duration-500 group-hover:scale-110 group-hover:text-white" />
                 </div>
-                <h3 className="relative mt-6 text-xl font-semibold text-slate-900 transition-colors duration-300 group-hover:text-[#16A085] dark:text-white dark:group-hover:text-[#48C9B0]">
+                <h3 className="relative mt-6 text-xl font-semibold text-slate-900 transition-colors duration-300 group-hover:text-[#1FA89A] dark:text-white dark:group-hover:text-[#1FA89A]">
                   {feature.title}
                 </h3>
                 <p className="relative mt-3 text-slate-600 dark:text-slate-300">
@@ -210,11 +282,11 @@ export default function LandingPage() {
             {steps.map((step, index) => (
               <div key={index} className="group relative">
                 <div className="flex flex-col items-center text-center">
-                  <div className="relative flex h-16 w-16 items-center justify-center rounded-full bg-gradient-to-br from-[#16A085] to-[#1ABC9C] text-2xl font-bold text-white shadow-lg transition-all duration-500 hover:scale-125 hover:rotate-12 hover:shadow-2xl dark:from-[#48C9B0] dark:to-[#5FDDC1] dark:text-slate-900">
+                  <div className="relative flex h-16 w-16 items-center justify-center rounded-full bg-[#1FA89A] text-2xl font-bold text-white shadow-lg transition-all duration-500 hover:scale-125 hover:rotate-12 hover:shadow-2xl dark:bg-[#1FA89A] dark:text-white">
                     <span className="transition-transform duration-500 group-hover:scale-110">{index + 1}</span>
                     <div className="absolute inset-0 rounded-full bg-white opacity-0 transition-opacity duration-500 group-hover:opacity-20" />
                   </div>
-                  <h3 className="mt-6 text-lg font-semibold text-slate-900 transition-colors duration-300 group-hover:text-[#16A085] dark:text-white dark:group-hover:text-[#48C9B0]">
+                  <h3 className="mt-6 text-lg font-semibold text-slate-900 transition-colors duration-300 group-hover:text-[#1FA89A] dark:text-white dark:group-hover:text-[#1FA89A]">
                     {step.title}
                   </h3>
                   <p className="mt-2 text-sm text-slate-600 dark:text-slate-400">
@@ -222,7 +294,7 @@ export default function LandingPage() {
                   </p>
                 </div>
                 {index < steps.length - 1 && (
-                  <div className="absolute left-1/2 top-8 hidden h-0.5 w-full animate-pulse bg-gradient-to-r from-[#0B5D4E] to-transparent lg:block dark:from-[#7EE7D5]" style={{ animationDuration: '3s' }} />
+                  <div className="absolute left-1/2 top-8 hidden h-0.5 w-full animate-pulse bg-[#1FA89A] lg:block" style={{ animationDuration: '3s' }} />
                 )}
               </div>
             ))}
@@ -232,7 +304,7 @@ export default function LandingPage() {
 
       {/* Benefits Section */}
       <section className="relative overflow-hidden py-16 sm:py-24">
-        <div className="absolute inset-0 bg-gradient-to-br from-[#0B5D4E] to-[#09493f] dark:from-[#0B5D4E]/20 dark:to-[#09493f]/20">
+        <div className="absolute inset-0 bg-[#0B5D4E]">
           <div className="absolute inset-0 opacity-10">
             <div className="absolute left-1/4 top-1/4 h-64 w-64 rounded-full bg-white blur-3xl" />
             <div className="absolute right-1/4 bottom-1/4 h-96 w-96 rounded-full bg-white blur-3xl" />
@@ -240,10 +312,10 @@ export default function LandingPage() {
         </div>
         <div className="relative mx-auto max-w-4xl px-4 text-center sm:px-6 lg:px-8">
           <div className="animate-in slide-in-from-bottom fade-in duration-1000">
-            <h2 className="text-3xl font-bold tracking-tight text-white sm:text-4xl dark:text-[#7EE7D5]">
+            <h2 className="text-3xl font-bold tracking-tight text-white sm:text-4xl dark:text-white">
               Why Choose MPATH?
             </h2>
-            <p className="mt-4 text-lg text-white/90 dark:text-slate-300">
+            <p className="mt-4 text-lg text-white/90 dark:text-white/80">
               Join thousands of learners who are pursuing their passions and building successful careers with MPATH.
             </p>
             <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
@@ -253,8 +325,8 @@ export default function LandingPage() {
                   className={`flex items-start gap-3 rounded-2xl bg-white/10 p-6 backdrop-blur-sm transition-all duration-700 hover:scale-105 hover:bg-white/20 ${mounted ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'}`}
                   style={{ transitionDelay: `${index * 100 + 400}ms` }}
                 >
-                  <CheckCircle2 className="h-6 w-6 flex-shrink-0 text-white transition-transform duration-300 hover:scale-125 dark:text-[#7EE7D5]" />
-                  <span className="text-left text-sm text-white/90 dark:text-slate-300">{benefit}</span>
+                  <CheckCircle2 className="h-6 w-6 flex-shrink-0 text-white transition-transform duration-300 hover:scale-125 dark:text-white" />
+                  <span className="text-left text-sm text-white/90 dark:text-white/80">{benefit}</span>
                 </div>
               ))}
             </div>
@@ -265,12 +337,12 @@ export default function LandingPage() {
       {/* CTA Section */}
       <section className="py-16 sm:py-24">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="group relative overflow-hidden rounded-3xl bg-gradient-to-br from-[#0B5D4E] via-[#0B5D4E] to-[#09493f] px-8 py-16 text-center shadow-2xl transition-all duration-700 hover:shadow-[#0B5D4E]/50 dark:from-[#7EE7D5]/20 dark:via-[#0B5D4E]/20 dark:to-[#09493f]/20">
+          <div className="group relative overflow-hidden rounded-3xl bg-[#0B5D4E] px-8 py-16 text-center shadow-2xl transition-all duration-700 hover:shadow-[#0B5D4E]/50 dark:bg-[#0B5D4E]">
             {/* Animated gradient overlay */}
             <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent -translate-x-full animate-shimmer" style={{ animation: 'shimmer 3s infinite' }} />
             
             <div className="relative">
-              <h2 className="text-3xl font-bold tracking-tight text-white transition-all duration-500 group-hover:scale-105 sm:text-4xl dark:text-[#7EE7D5]">
+              <h2 className="text-3xl font-bold tracking-tight text-white transition-all duration-500 group-hover:scale-105 sm:text-4xl dark:text-white">
                 Ready to Start Your Career Journey?
               </h2>
               <p className="mt-4 text-lg text-white/90 transition-all duration-500 group-hover:scale-105 dark:text-slate-300">
@@ -279,11 +351,10 @@ export default function LandingPage() {
               <div className="mt-8 flex flex-col items-center justify-center gap-4 sm:flex-row">
                 <Link
                   href="/register"
-                  className="group/btn relative inline-flex items-center gap-2 overflow-hidden rounded-full bg-white px-8 py-4 text-base font-semibold text-[#0B5D4E] transition-all duration-300 hover:scale-110 hover:shadow-2xl dark:bg-[#7EE7D5] dark:text-slate-900"
+                  className="group/btn relative inline-flex items-center gap-2 overflow-hidden rounded-full bg-white px-8 py-4 text-base font-semibold text-[#0B5D4E] transition-all duration-300 hover:scale-110 hover:bg-[#0B5D4E] hover:text-white hover:shadow-2xl dark:bg-white dark:text-[#0B5D4E] dark:hover:bg-[#0B5D4E] dark:hover:text-white"
                 >
                   <span className="relative z-10">Get Started Free</span>
                   <ArrowRight className="relative z-10 h-5 w-5 transition-transform duration-300 group-hover/btn:translate-x-2" />
-                  <div className="absolute inset-0 -z-0 bg-gradient-to-r from-slate-100 to-white opacity-0 transition-opacity duration-300 group-hover/btn:opacity-100 dark:from-[#6dd4c1] dark:to-[#7EE7D5]" />
                 </Link>
                 <Link
                   href="/login"
@@ -303,11 +374,11 @@ export default function LandingPage() {
           <div className="flex flex-col items-center justify-between gap-4 sm:flex-row">
             <div className="flex items-center gap-2">
               <Image
-                src="/newlogo.png"
+                src="/mpathlogo2.png"
                 alt="MPATH Logo"
-                width={100}
-                height={33}
-                className="h-6 w-auto"
+                width={200}
+                height={67}
+                className="h-12 w-auto sm:h-16"
               />
             </div>
             <p className="text-sm text-slate-600 dark:text-slate-400">
