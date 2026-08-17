@@ -257,38 +257,30 @@ export default function GainExperienceAssessmentsPage() {
                   )}
                 </div>
 
-                <button
-                  disabled={isLocked}
-                  className={`flex items-center gap-2 rounded-xl px-6 py-3 font-medium text-white transition-colors ${
-                    isLocked
-                      ? "cursor-not-allowed bg-slate-400 dark:bg-slate-700"
-                      : "bg-[#0B5D4E] hover:bg-[#0B5D4E]/90 dark:bg-[#1FA89A] dark:hover:bg-[#1FA89A]/90"
-                  }`}
-                >
-                  {project.status === "not-started" && (
-                    <>
-                      <Play className="h-4 w-4" />
-                      Start Project
-                    </>
-                  )}
-                  {project.status === "in-progress" && (
-                    <>
-                      <Play className="h-4 w-4" />
-                      Continue
-                    </>
-                  )}
-                  {project.status === "completed" && (
-                    <>
-                      <Award className="h-4 w-4" />
-                      View Portfolio
-                    </>
-                  )}
-                  {isLocked && (
-                    <>
-                      <span>Locked</span>
-                    </>
-                  )}
-                </button>
+                {isLocked ? (
+                  <button
+                    disabled
+                    className="flex items-center gap-2 rounded-xl px-6 py-3 font-medium text-white transition-colors cursor-not-allowed bg-slate-400 dark:bg-slate-700"
+                  >
+                    <span>Locked</span>
+                  </button>
+                ) : project.status === "completed" ? (
+                  <Link
+                    href="/portfolio"
+                    className="flex items-center gap-2 rounded-xl px-6 py-3 font-medium text-white transition-colors bg-[#0B5D4E] hover:bg-[#0B5D4E]/90 dark:bg-[#1FA89A] dark:hover:bg-[#1FA89A]/90"
+                  >
+                    <Award className="h-4 w-4" />
+                    View Portfolio
+                  </Link>
+                ) : (
+                  <Link
+                    href={`/assessments/gain-experience/${project.id}`}
+                    className="flex items-center gap-2 rounded-xl px-6 py-3 font-medium text-white transition-colors bg-[#0B5D4E] hover:bg-[#0B5D4E]/90 dark:bg-[#1FA89A] dark:hover:bg-[#1FA89A]/90"
+                  >
+                    <Play className="h-4 w-4" />
+                    {project.status === "in-progress" ? "Continue" : "Start Project"}
+                  </Link>
+                )}
               </div>
             </div>
           );
