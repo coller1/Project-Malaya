@@ -1,5 +1,10 @@
+"use client";
+
+import { useState } from "react";
 import Image from "next/image";
-import { ArrowRight, BookOpen, CheckCircle2, Clock3, Code, Lightbulb, Trophy, Users, Target, Gift } from "lucide-react";
+import { ArrowRight, BookOpen, CheckCircle2, Clock3, Code, Lightbulb, Trophy, Users, Target, Gift, Edit3, Save, X } from "lucide-react";
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
+import { Button } from "@/components/ui/button";
 
 const phases = [
   {
@@ -112,6 +117,65 @@ const modules = [
 ];
 
 export default function MyRoadmapPage() {
+  const [isEditGoalOpen, setIsEditGoalOpen] = useState(false);
+  const [isSaveCurrentOpen, setIsSaveCurrentOpen] = useState(false);
+  const [currentGoal, setCurrentGoal] = useState("Financial Analyst");
+  const [newGoal, setNewGoal] = useState("");
+  const [newIndustry, setNewIndustry] = useState("");
+  const [savedGoals, setSavedGoals] = useState<string[]>([]);
+
+  const careerGoals = [
+    "Financial Analyst",
+    "Software Engineer",
+    "UX Designer",
+    "Data Analyst",
+    "Marketing Specialist",
+    "Cybersecurity Analyst",
+    "Business Analyst",
+    "Product Manager",
+    "Data Scientist",
+    "Electrician",
+    "Welder",
+    "Plumber",
+    "HVAC Technician",
+    "Automotive Technician",
+    "Construction Manager",
+    "Heavy Equipment Operator",
+    "Industrial Mechanic",
+    "CNC Machinist",
+  ];
+
+  const industries = [
+    "Technology",
+    "Finance",
+    "Healthcare",
+    "Education",
+    "Aviation",
+    "Marketing",
+    "Government",
+    "Consulting",
+    "Construction",
+    "Manufacturing",
+    "Automotive",
+    "Energy & Utilities",
+  ];
+
+  const handleSaveCurrentGoal = () => {
+    if (!savedGoals.includes(currentGoal)) {
+      setSavedGoals([...savedGoals, currentGoal]);
+    }
+    setIsSaveCurrentOpen(false);
+  };
+
+  const handleChangeGoal = () => {
+    if (newGoal && newIndustry) {
+      setCurrentGoal(newGoal);
+      setIsEditGoalOpen(false);
+      setNewGoal("");
+      setNewIndustry("");
+    }
+  };
+
   return (
     <div className="mx-auto flex max-w-7xl flex-col gap-6">
       <section className="overflow-hidden rounded-[24px] border border-slate-200 bg-white shadow-sm dark:border-slate-800 dark:bg-slate-900">
@@ -125,11 +189,186 @@ export default function MyRoadmapPage() {
             style={{ width: 1330, height: 340 }}
           />
           <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-black/10 to-transparent" />
-          <button className="absolute bottom-4 left-4 rounded-full bg-white px-4 py-2 text-sm font-semibold text-slate-900 shadow-sm">
-            Edit goal
-          </button>
+          
+          {/* Current Goal Info */}
+          <div className="absolute bottom-4 left-4 flex items-center gap-3">
+            <div className="rounded-2xl bg-white/95 px-4 py-3 shadow-lg backdrop-blur-sm dark:bg-slate-900/95">
+              <p className="text-xs font-medium text-slate-600 dark:text-slate-400">Current Goal</p>
+              <p className="mt-1 text-lg font-bold text-slate-900 dark:text-slate-100">{currentGoal}</p>
+            </div>
+            <button 
+              onClick={() => setIsEditGoalOpen(true)}
+              className="flex items-center gap-2 rounded-2xl bg-white px-4 py-3 text-sm font-semibold text-slate-900 shadow-lg transition hover:bg-slate-50 dark:bg-slate-800 dark:text-slate-100 dark:hover:bg-slate-700"
+            >
+              <Edit3 className="h-4 w-4" />
+              Edit Goal
+            </button>
+          </div>
         </div>
       </section>
+
+      {/* Edit Goal Modal */}
+      <Dialog open={isEditGoalOpen} onOpenChange={setIsEditGoalOpen}>
+        <DialogContent className="max-w-3xl max-h-[90vh] overflow-y-auto">
+          <DialogHeader>
+            <DialogTitle>Manage Your Career Goals</DialogTitle>
+            <DialogDescription>
+              Change your career path or save your current progress to explore other goals.
+            </DialogDescription>
+          </DialogHeader>
+
+          <div className="space-y-6 py-4">
+            {/* Save Current Goal Section */}
+            <div className="rounded-2xl border-2 border-[#0B5D4E] bg-[#E8F7F3] p-4 dark:border-[#7EE7D5] dark:bg-[#0B5D4E]/10">
+              <div className="flex items-start justify-between gap-4">
+                <div className="flex items-start gap-3">
+                  <Save className="h-5 w-5 flex-shrink-0 text-[#0B5D4E] dark:text-[#7EE7D5]" />
+                  <div>
+                    <p className="font-semibold text-slate-900 dark:text-slate-100">
+                      Save your current progress
+                    </p>
+                    <p className="mt-1 text-sm text-slate-700 dark:text-slate-300">
+                      Save progress on <strong>{currentGoal}</strong> before switching to a new goal. You can return to this goal anytime without losing:
+                    </p>
+                    <ul className="mt-2 space-y-1 text-sm text-slate-700 dark:text-slate-300">
+                      <li>• All completed courses and lessons</li>
+                      <li>• Your current phase progress</li>
+                      <li>• Earned certificates and badges</li>
+                    </ul>
+                  </div>
+                </div>
+                <Button
+                  onClick={handleSaveCurrentGoal}
+                  disabled={savedGoals.includes(currentGoal)}
+                  className="flex-shrink-0 bg-[#0B5D4E] hover:bg-[#09493f] dark:bg-[#7EE7D5] dark:text-slate-900 dark:hover:bg-[#6dd4c1]"
+                >
+                  {savedGoals.includes(currentGoal) ? "Saved" : "Save Progress"}
+                </Button>
+              </div>
+            </div>
+
+            {/* Saved Goals */}
+            {savedGoals.length > 0 && (
+              <div className="rounded-2xl border border-slate-200 bg-slate-50 p-4 dark:border-slate-700 dark:bg-slate-800/60">
+                <div className="flex items-center gap-2 mb-3">
+                  <Target className="h-4 w-4 text-[#0B5D4E] dark:text-[#7EE7D5]" />
+                  <h3 className="text-sm font-semibold text-slate-900 dark:text-slate-100">
+                    Your Saved Career Paths
+                  </h3>
+                  <span className="rounded-full bg-slate-200 px-2 py-0.5 text-xs font-medium text-slate-600 dark:bg-slate-700 dark:text-slate-400">
+                    {savedGoals.length}
+                  </span>
+                </div>
+                <div className="flex flex-wrap gap-2">
+                  {savedGoals.map((goal) => (
+                    <button
+                      key={goal}
+                      onClick={() => {
+                        setNewGoal(goal);
+                        setNewIndustry("Technology"); // Auto-select a default
+                      }}
+                      className="rounded-full bg-[#E8F7F3] px-3 py-1.5 text-sm font-medium text-[#0B5D4E] transition hover:bg-[#d4efe9] dark:bg-[#0B5D4E]/20 dark:text-[#7EE7D5] dark:hover:bg-[#0B5D4E]/30"
+                    >
+                      {goal}
+                    </button>
+                  ))}
+                </div>
+                <p className="mt-2 text-xs text-slate-600 dark:text-slate-400">
+                  Click a saved goal to quickly switch back to it
+                </p>
+              </div>
+            )}
+
+            <div className="border-t border-slate-200 pt-6 dark:border-slate-700">
+              <h3 className="mb-4 text-base font-semibold text-slate-900 dark:text-slate-100">
+                Or Choose a New Career Path
+              </h3>
+
+              {/* Career Goal Selection */}
+              <div>
+                <label className="mb-3 block text-sm font-semibold text-slate-900 dark:text-slate-100">
+                  What career do you want to pursue?
+                </label>
+                <div className="grid grid-cols-2 gap-2 sm:grid-cols-3">
+                  {careerGoals.map((goal) => (
+                    <button
+                      key={goal}
+                      onClick={() => setNewGoal(goal)}
+                      className={`rounded-2xl border-2 px-4 py-3 text-sm font-medium transition ${
+                        newGoal === goal
+                          ? "border-[#0B5D4E] bg-[#E8F7F3] text-[#0B5D4E] dark:border-[#7EE7D5] dark:bg-[#0B5D4E]/20 dark:text-[#7EE7D5]"
+                          : "border-slate-200 bg-white text-slate-700 hover:border-slate-300 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-300"
+                      }`}
+                    >
+                      {goal}
+                    </button>
+                  ))}
+                </div>
+              </div>
+
+              {/* Industry Selection */}
+              <div className="mt-6">
+                <label className="mb-3 block text-sm font-semibold text-slate-900 dark:text-slate-100">
+                  Which industry interests you?
+                </label>
+                <div className="grid grid-cols-2 gap-2 sm:grid-cols-4">
+                  {industries.map((industry) => (
+                    <button
+                      key={industry}
+                      onClick={() => setNewIndustry(industry)}
+                      className={`rounded-2xl border-2 px-4 py-3 text-sm font-medium transition ${
+                        newIndustry === industry
+                          ? "border-[#0B5D4E] bg-[#E8F7F3] text-[#0B5D4E] dark:border-[#7EE7D5] dark:bg-[#0B5D4E]/20 dark:text-[#7EE7D5]"
+                          : "border-slate-200 bg-white text-slate-700 hover:border-slate-300 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-300"
+                      }`}
+                    >
+                      {industry}
+                    </button>
+                  ))}
+                </div>
+              </div>
+
+              {/* Warning */}
+              {newGoal && newGoal !== currentGoal && (
+                <div className="mt-6 rounded-2xl border border-[#F5B52E]/30 bg-[#FEF7E8] p-4 dark:border-[#F5B52E]/20 dark:bg-[#F5B52E]/10">
+                  <div className="flex items-start gap-3">
+                    <Target className="h-5 w-5 flex-shrink-0 text-[#F5B52E]" />
+                    <div className="text-sm">
+                      <p className="font-semibold text-slate-900 dark:text-slate-100">
+                        Your roadmap will be updated
+                      </p>
+                      <p className="mt-1 text-slate-700 dark:text-slate-300">
+                        Switching from <strong>{currentGoal}</strong> to <strong>{newGoal}</strong> will change your
+                        courses and phases to match your new goal.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              )}
+            </div>
+          </div>
+
+          <div className="flex items-center justify-end gap-3 border-t border-slate-200 pt-4 dark:border-slate-700">
+            <Button
+              variant="outline"
+              onClick={() => {
+                setIsEditGoalOpen(false);
+                setNewGoal("");
+                setNewIndustry("");
+              }}
+            >
+              Cancel
+            </Button>
+            <Button
+              onClick={handleChangeGoal}
+              disabled={!newGoal || !newIndustry}
+              className="bg-[#0B5D4E] hover:bg-[#09493f] dark:bg-[#7EE7D5] dark:text-slate-900 dark:hover:bg-[#6dd4c1]"
+            >
+              Change Goal
+            </Button>
+          </div>
+        </DialogContent>
+      </Dialog>
 
       <section className="rounded-[24px] border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-800 dark:bg-slate-900">
         <div className="flex items-center justify-between">
