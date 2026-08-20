@@ -5,6 +5,7 @@ import Image from "next/image";
 import { ArrowRight, BookOpen, CheckCircle2, Clock3, Code, Lightbulb, Trophy, Users, Target, Gift, Edit3, Save, X } from "lucide-react";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
+import AnimatedBackground from "@/components/animated-background";
 
 const phases = [
   {
@@ -177,7 +178,9 @@ export default function MyRoadmapPage() {
   };
 
   return (
-    <div className="mx-auto flex max-w-7xl flex-col gap-6">
+    <>
+      <AnimatedBackground />
+      <div className="mx-auto flex max-w-7xl flex-col gap-6">
       <section className="overflow-hidden rounded-[24px] border border-slate-200 bg-white shadow-sm dark:border-slate-800 dark:bg-slate-900">
         <div className="relative">
           <Image
@@ -571,5 +574,6 @@ export default function MyRoadmapPage() {
         </div>
       </section>
     </div>
+    </>
   );
 }

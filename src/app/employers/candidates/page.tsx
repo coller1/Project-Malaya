@@ -268,9 +268,12 @@ function CandidateCard({ candidate }: { candidate: CandidateType }) {
 
           {/* Actions */}
           <div className="mt-4 flex items-center gap-2">
-            <button className="flex-1 rounded-2xl bg-[#0B5D4E] px-4 py-2 text-sm font-semibold text-white transition hover:bg-[#09493f] dark:bg-[#7EE7D5] dark:text-slate-900 dark:hover:bg-[#6dd4c1]">
+            <Link 
+              href={`/employers/candidates/${candidate.id}`}
+              className="flex-1 rounded-2xl bg-[#0B5D4E] px-4 py-2 text-center text-sm font-semibold text-white transition hover:bg-[#09493f] dark:bg-[#7EE7D5] dark:text-slate-900 dark:hover:bg-[#6dd4c1]"
+            >
               View Full Profile
-            </button>
+            </Link>
             <button className="rounded-2xl border border-slate-200 bg-white p-2 transition hover:bg-slate-50 dark:border-slate-700 dark:bg-slate-800 dark:hover:bg-slate-750">
               <Mail className="h-4 w-4 text-slate-600 dark:text-slate-400" />
             </button>

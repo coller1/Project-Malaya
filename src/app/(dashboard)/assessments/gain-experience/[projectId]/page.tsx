@@ -15,6 +15,7 @@ import {
   Clock,
   Award,
 } from "lucide-react";
+import AnimatedBackground from "@/components/animated-background";
 
 export default function ProjectWorkspacePage({ params }: { params: Promise<{ projectId: string }> }) {
   const { projectId } = use(params);
@@ -111,9 +112,11 @@ export default function ProjectWorkspacePage({ params }: { params: Promise<{ pro
   }
 
   return (
-    <div className="space-y-6">
+    <div className="relative space-y-6">
+      <AnimatedBackground />
+
       {/* Header */}
-      <div className="flex items-center justify-between">
+      <div className="relative flex items-center justify-between">
         <Link
           href="/assessments/gain-experience"
           className="inline-flex items-center gap-2 text-sm font-medium text-slate-600 transition-colors hover:text-slate-900 dark:text-slate-400 dark:hover:text-slate-100"
@@ -127,7 +130,7 @@ export default function ProjectWorkspacePage({ params }: { params: Promise<{ pro
         </div>
       </div>
 
-      <div className="grid gap-6 lg:grid-cols-3">
+      <div className="relative grid gap-6 lg:grid-cols-3">
         {/* Main Content - 2/3 */}
         <div className="space-y-6 lg:col-span-2">
           {/* Project Brief */}

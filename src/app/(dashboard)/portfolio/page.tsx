@@ -5,10 +5,13 @@ import { CareerInsights } from "@/components/portfolio/career-insights";
 import { AccomplishedProjects } from "@/components/portfolio/accomplished-projects";
 import { Certificates } from "@/components/portfolio/certificates";
 import { ResumeBuilder } from "@/components/portfolio/resume-builder";
+import AnimatedBackground from "@/components/animated-background";
 
 export default function PortfolioPage() {
   return (
-    <div className="space-y-6">
+    <>
+      <AnimatedBackground />
+      <div className="space-y-6">
       {/* Header */}
       <div className="rounded-[24px] border border-slate-200 bg-white p-8 shadow-sm dark:border-slate-800 dark:bg-slate-900">
         <p className="text-sm font-medium uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400">Portfolio</p>
@@ -39,5 +42,6 @@ export default function PortfolioPage() {
       {/* Resume Builder */}
       <ResumeBuilder />
     </div>
+    </>
   );
 }

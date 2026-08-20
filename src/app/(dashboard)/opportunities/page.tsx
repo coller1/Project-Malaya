@@ -18,6 +18,7 @@ import {
   Filter,
   TrendingUp
 } from "lucide-react";
+import AnimatedBackground from "@/components/animated-background";
 
 type OpportunityType = "internship" | "job" | "seminar" | "webinar" | "competition" | "all";
 
@@ -375,7 +376,9 @@ export default function OpportunitiesPage() {
   };
 
   return (
-    <div className="space-y-6">
+    <>
+      <AnimatedBackground />
+      <div className="space-y-6">
       {/* Header */}
       <div>
         <h1 className="text-2xl font-semibold text-slate-900 dark:text-slate-100">
@@ -467,5 +470,6 @@ export default function OpportunitiesPage() {
         </div>
       )}
     </div>
+    </>
   );
 }
